@@ -1,0 +1,374 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(go) pressure attach",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+            "go.delveConfig": {
+                // "debugAdapter": "legacy",
+                "dlvFlags": [
+                    "--only-same-users"
+                ]
+            },
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "(go) gm_agent launch",
+            "type": "go",
+            "request": "launch",
+            "mode": "exec",
+            "program": "${workspaceFolder}/../release_package/gm_agent/bin/gm_agent",
+            "cwd": "${workspaceFolder}/../release_package/gm_agent/bin/",
+            "args": [
+                "--id=1.1.86.1",
+                "--conf-file=../etc/gm_agent.toml",
+                "--global-file=../../common/conf/global_conf.toml",
+                "--shard-id=1"
+            ]
+        },
+        {
+            "name": "(go) pressure_req launch",
+            "type": "go",
+            "request": "launch",
+            "mode": "exec",
+            "program": "${workspaceFolder}/../release_package/pressure_req/bin/pressure_req",
+            "cwd": "${workspaceFolder}/../release_package/pressure_req/bin/",
+            "args": [
+                "--cfg-file=../etc/pressure_req_conf.toml",
+                "--scene=804",
+                "--start-num=50",
+                "--stage-add=200",
+                "--max-num=52",
+                "--open-id-begin=10000",
+                "--stage-duration=30",
+            ]
+        },
+        {
+            "name": "(go) pressure launch",
+            "type": "go",
+            "request": "launch",
+            "mode": "exec",
+            "program": "${workspaceFolder}/../release_package/pressure/bin/pressure",
+            "cwd": "${workspaceFolder}/../release_package/pressure/bin/",
+            "args": [
+                "--pressure-conf-file=../etc/pressure_conf.toml",
+                "--port=9080",
+                "--pressure_max_procs=1"
+            ]
+        },
+        {
+            "name": "(go) gm_agent attach",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+            "processId": "${command:pickProcess}",
+            // "go.delveConfig": {
+            //     "debugAdapter": "dlv-dap",
+            //     "dlvFlags": [
+            //         "--only-same-user=false"
+            //     ],
+            // }
+        },
+        {
+            "name": "(gdb) Deposit Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/deposit/bin/deposit",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Deposit Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../release_package/depositsvrd/bin/depositsvrd",
+            "args": [
+                "--id=1.1.13.1",
+                "--conf-file=../etc/deposit.xml",
+                "--tlogconf=../../common/tlog/tlogconf.xml",
+                "--daemon",
+                "start"
+            ],
+            // "coreDumpPath": "${workspaceFolder}/../release_package/depositsvrd/bin/${input:coreFileName}",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../release_package/depositsvrd/bin/",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) talent Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/talent/bin/talent",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) accountsvrd Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/accountsvrd/bin/accountsvrd",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) dbsvrd Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/dbsvrd/bin/dbsvrd",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) talent Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../release_package/talent/bin/talent",
+            "args": [
+                "--id=1.1.83.1",
+                "--conf-file=../etc/talent.toml",
+                "--global-file=../../common/conf/global_conf.toml",
+                "--tlogconf=../etc/tlogconf.xml",
+                "--shard-id=1",
+                "start"
+            ],
+            // "coreDumpPath": "${workspaceFolder}/../release_package/depositsvrd/bin/${input:coreFileName}",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../release_package/talent/bin/",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) sparmod Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/sparmod/bin/sparmod",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) lobbysvrd Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/lobbysvrd/bin/lobbysvrd",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) gamefriend Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/gamefriend/bin/gamefriend",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) chat Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/chat/bin/chat",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) homepage Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/homepage/bin/homepage",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) activity Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/activity/bin/activity",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) activity Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../release_package/activity/bin/activity",
+            "args": [
+                "--id=1.1.65.1",
+                "--conf-file=../etc/activity.toml",
+                "--global-file=../../common/conf/global_conf.toml",
+                "--tlogconf=../etc/tlogconf.xml",
+                "--shard-id=1",
+                "start"
+            ],
+            // "coreDumpPath": "${workspaceFolder}/../release_package/depositsvrd/bin/${input:coreFileName}",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../release_package/activity/bin/",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) game_statis Attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../release_package/game_statis/bin/game_statis",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(go) gmsvr attach",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "(go) data_agent attach",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "python launch",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "--config-file=../config/cfr_proc_config_inner.yaml",
+                "--config-name=dev"
+            ]
+        },
+        {
+            "name": "(gdb) log_agent core",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../release_package/log_agent/bin/log_agent",
+            "args": [
+                "--id=1.1.65.1",
+                "--conf-file=../etc/log_agent.toml",
+                "--global-file=../../common/conf/global_conf.toml",
+                "--tlogconf=../etc/tlogconf.xml",
+                "--shard-id=1",
+                "start"
+            ],
+            // "coreDumpPath": "${workspaceFolder}/../release_package/depositsvrd/bin/${input:coreFileName}",
+            "coreDumpPath": "/data/taylorzhong/core_log_agent_1718276368.27688",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../release_package/log_agent/bin/",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+    ],
+    "inputs": [
+        {
+            "id": "coreFileName",
+            "type": "promptString",
+            "description": "Enter core file path"
+        }
+    ]
+}
